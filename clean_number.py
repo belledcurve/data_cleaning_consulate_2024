@@ -6,8 +6,12 @@ def clean_number(number : str) -> str:
     number = number.strip();
     
     if (re.search('\D', number[0])!=None):
-        global_extension = re.search("^\D\d{1,4}", number)
-        clean_number += '+' + global_extension.group()[1:] + ' ';
+        # the longest global exension is 2
+        global_extension = re.search("^\D\d{1,2}", number)
+        if (len(global_extension.group()) > 2):
+            rest = number;
+        else:
+            clean_number += '+' + global_extension.group()[1:] + ' ';
 
         rest = number[global_extension.end() : ]
     else:
